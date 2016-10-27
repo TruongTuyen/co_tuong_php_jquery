@@ -2,7 +2,10 @@
     $(document).ready(function(){
         o_co_selected();
         //kt_nuoc_di_hop_le( 6, 48);
-        kt_nuoc_di_hop_le( 3,67 );
+        kt_nuoc_di_hop_le( 5, 22);
+        kt_nuoc_di_hop_le( 5, 32);
+        kt_nuoc_di_hop_le( 5, 51);
+        kt_nuoc_di_hop_le( 5, 43);
     });
     
     function o_co_selected(){
@@ -50,7 +53,7 @@
                 }
                 //Xet cac nuoc di ben phai
                 var xet_nuoc_ben_phai = vi_tri_hien_tai + 1;
-                while( parseInt(xet_nuoc_ben_phai/9) == parseInt(xet_nuoc_ben_phai/9) ){
+                while( parseInt(xet_nuoc_ben_phai/9) == parseInt(vi_tri_hien_tai/9) ){
                     if( xet_nuoc_ben_phai < 0 || xet_nuoc_ben_phai > 89 ){ break; }
                     //Neu nuoc nay co quan co cua ben minh => bi can
                     var gia_tri_vitri_toi = parseInt( $('[data-position="'+xet_nuoc_ben_phai+'"]').data('value') ); //o trong hay khong
@@ -457,6 +460,344 @@
                         break;
                 }
                 break;
+            case 2 :
+                var quan_co_76 = parseInt( $('[data-position="76"]').data('value') );
+                var mau_quan_co_76 = parseInt( $('[data-position="76"]').data('color') );
+                switch( vi_tri_hien_tai ){
+                    
+                    case 66 :
+                        if( quan_co_76 == 0 ){ //Khong co quan co nao nam o 76
+                            vi_tri_co_the_di.push(76);
+                        }else{ // ton tai quan co tai o 76
+                            if( mau_quan_co_76 != 2 ){
+                                vi_tri_co_the_di.push(76);
+                            }
+                        }
+                        break;
+                    case 68 :
+                        if( quan_co_76 == 0 ){ //Khong co quan co nao nam o 76
+                            vi_tri_co_the_di.push(76);
+                        }else{ // ton tai quan co tai o 76
+                            if( mau_quan_co_76 != 2 ){
+                                vi_tri_co_the_di.push(76);
+                            }
+                        }
+                        break;
+                    case 76 :
+                        var quan_co_66 = parseInt( $('[data-position="66"]').data('value') );
+                        var quan_co_68 = parseInt( $('[data-position="68"]').data('value') ); 
+                        var quan_co_84 = parseInt( $('[data-position="84"]').data('value') );
+                        var quan_co_86 = parseInt( $('[data-position="86"]').data('value') );
+                        
+                        if( quan_co_66 == 0 ){
+                            vi_tri_co_the_di.push(66);
+                        }else{
+                            var mau_quan_co_66 = parseInt( $('[data-position="66"]').data('color') );
+                            if( mau_quan_co_66 != 2 ){
+                                vi_tri_co_the_di.push(66);
+                            }
+                        }
+                        
+                        if( quan_co_68 == 0 ){
+                            vi_tri_co_the_di.push(68);
+                        }else{
+                            var mau_quan_co_68 = parseInt( $('[data-position="68"]').data('color') );
+                            if( mau_quan_co_68 != 2 ){
+                                vi_tri_co_the_di.push(68);
+                            }
+                        }
+                        
+                        if( quan_co_86 == 0 ){
+                            vi_tri_co_the_di.push(86);
+                        }else{
+                            var mau_quan_co_86 = parseInt( $('[data-position="86"]').data('color') );
+                            if( mau_quan_co_86 != 2 ){
+                                vi_tri_co_the_di.push(86);
+                            }
+                        }
+                        
+                        if( quan_co_84 == 0 ){
+                            vi_tri_co_the_di.push(84);
+                        }else{
+                            var mau_quan_co_84 = parseInt( $('[data-position="84"]').data('color') );
+                            if( mau_quan_co_84 != 2 ){
+                                vi_tri_co_the_di.push(84);
+                            }
+                        }
+                        
+                        break;
+                    case 84 :
+                        if( quan_co_76 == 0 ){ //Khong co quan co nao nam o 76
+                            vi_tri_co_the_di.push(76);
+                        }else{ // ton tai quan co tai o 76
+                            if( mau_quan_co_76 != 2 ){
+                                vi_tri_co_the_di.push(76);
+                            }
+                        }
+                        break;
+                    case 86 :
+                        if( quan_co_76 == 0 ){ //Khong co quan co nao nam o 76
+                            vi_tri_co_the_di.push(76);
+                        }else{ // ton tai quan co tai o 76
+                            if( mau_quan_co_76 != 2 ){
+                                vi_tri_co_the_di.push(76);
+                            }
+                        }
+                        break;
+                }
+                
+                break;
+                
+            case 7 : //xet cac nuoc co the di cho quan tuong
+                //cac o hop le: 66, 67, 68, 75, 76, 77, 84, 85, 86
+                //sang trai 1 nuoc
+                var sang_trai_1_nuoc = vi_tri_hien_tai - 1;
+                if( (parseInt(sang_trai_1_nuoc/9) == parseInt(vi_tri_hien_tai/9)) && ( sang_trai_1_nuoc == 66 || sang_trai_1_nuoc == 67 || sang_trai_1_nuoc == 68 || sang_trai_1_nuoc == 75 || sang_trai_1_nuoc == 76 || sang_trai_1_nuoc == 77|| sang_trai_1_nuoc == 84 || sang_trai_1_nuoc == 85 || sang_trai_1_nuoc == 86 ) ){
+                    var quan_can = parseInt( $('[data-position="'+sang_trai_1_nuoc+'"]').data('value') );
+                    var mau_quan_can = parseInt( $('[data-position="'+sang_trai_1_nuoc+'"]').data('color') );
+                    
+                    if( quan_can == 0 ){ //khong co quan can
+                        vi_tri_co_the_di.push(sang_trai_1_nuoc);
+                    }else{
+                        if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                            vi_tri_co_the_di.push(sang_trai_1_nuoc);
+                        }
+                    }
+                    
+                }
+                
+                //sang phai 1 nuoc
+                var sang_phai_1_nuoc = vi_tri_hien_tai + 1;
+                if( (parseInt(sang_phai_1_nuoc/9) == parseInt(vi_tri_hien_tai/9)) && ( sang_phai_1_nuoc == 66 || sang_phai_1_nuoc == 67 || sang_phai_1_nuoc == 68 || sang_phai_1_nuoc == 75 || sang_phai_1_nuoc == 76 || sang_phai_1_nuoc == 77|| sang_phai_1_nuoc == 84 || sang_phai_1_nuoc == 85 || sang_phai_1_nuoc == 86 ) ){
+                    var quan_can = parseInt( $('[data-position="'+sang_phai_1_nuoc+'"]').data('value') );
+                    var mau_quan_can = parseInt( $('[data-position="'+sang_phai_1_nuoc+'"]').data('color') );
+                    
+                    if( quan_can == 0 ){ //khong co quan can
+                        vi_tri_co_the_di.push(sang_phai_1_nuoc);
+                    }else{
+                        if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                            vi_tri_co_the_di.push(sang_phai_1_nuoc);
+                        }
+                    }
+                    
+                }
+                //len tren 1 nuoc
+                var len_tren_1_nuoc = vi_tri_hien_tai - 9;
+                if( (parseInt(len_tren_1_nuoc/9) == (parseInt(vi_tri_hien_tai/9) - 1) ) && ( len_tren_1_nuoc == 66 || len_tren_1_nuoc == 67 || len_tren_1_nuoc == 68 || len_tren_1_nuoc == 75 || len_tren_1_nuoc == 76 || len_tren_1_nuoc == 77|| len_tren_1_nuoc == 84 || len_tren_1_nuoc == 85 || len_tren_1_nuoc == 86 ) ){
+                    var quan_can = parseInt( $('[data-position="'+len_tren_1_nuoc+'"]').data('value') );
+                    var mau_quan_can = parseInt( $('[data-position="'+len_tren_1_nuoc+'"]').data('color') );
+                    
+                    if( quan_can == 0 ){ //khong co quan can
+                        vi_tri_co_the_di.push(len_tren_1_nuoc);
+                    }else{
+                        if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                            vi_tri_co_the_di.push(len_tren_1_nuoc);
+                        }
+                    }
+                    
+                }
+                //xuong duoi 1 nuoc
+                var xuong_duoi_1_nuoc = vi_tri_hien_tai + 9;
+                if( (parseInt(xuong_duoi_1_nuoc/9) == (parseInt(vi_tri_hien_tai/9) + 1) ) && ( xuong_duoi_1_nuoc == 66 || xuong_duoi_1_nuoc == 67 || xuong_duoi_1_nuoc == 68 || xuong_duoi_1_nuoc == 75 || xuong_duoi_1_nuoc == 76 || xuong_duoi_1_nuoc == 77|| xuong_duoi_1_nuoc == 84 || xuong_duoi_1_nuoc == 85 || xuong_duoi_1_nuoc == 86 ) ){
+                    var quan_can = parseInt( $('[data-position="'+xuong_duoi_1_nuoc+'"]').data('value') );
+                    var mau_quan_can = parseInt( $('[data-position="'+xuong_duoi_1_nuoc+'"]').data('color') );
+                    
+                    if( quan_can == 0 ){ //khong co quan can
+                        vi_tri_co_the_di.push(xuong_duoi_1_nuoc);
+                    }else{
+                        if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                            vi_tri_co_the_di.push(xuong_duoi_1_nuoc);
+                        }
+                    }
+                    
+                    
+                }
+                
+                break;
+            case 5 : //Xet cac nuoc co the di cho quan phao
+                //Xet cac nuoc di ben trai
+                var xet_nuoc_ben_trai = vi_tri_hien_tai - 1;
+                while( (parseInt(xet_nuoc_ben_trai/9) == parseInt(vi_tri_hien_tai/9)) ){
+                    var quan_co_nuoc_ben_trai = parseInt( $('[data-position="'+xet_nuoc_ben_trai+'"]').data('value') );
+                    if( quan_co_nuoc_ben_trai == 0 ){ //vi tri dang xet la o trong
+                        vi_tri_co_the_di.push( xet_nuoc_ben_trai );
+                    }else{ //vi tri dang xet co quan co khac, vai tro nong phao
+                        var ben_trai_quan_can = xet_nuoc_ben_trai -1;
+                        while( (parseInt(ben_trai_quan_can/9) == parseInt(vi_tri_hien_tai/9)) ){
+                            var quan_co_trai_quan_can = parseInt( $('[data-position="'+ben_trai_quan_can+'"]').data('value') );
+                            if( quan_co_trai_quan_can == 0 ){
+                                ben_trai_quan_can--;
+                                continue;
+                            }else{
+                                var mau_quan_co_trai_quan_can = parseInt( $('[data-position="'+ben_trai_quan_can+'"]').data('value') );
+                                if( mau_quan_co_trai_quan_can != 2 ){
+                                    vi_tri_co_the_di.push( ben_trai_quan_can );
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    xet_nuoc_ben_trai--;
+                }
+                //xet nuoc ben phai
+                var xet_nuoc_ben_phai = vi_tri_hien_tai + 1;
+                while( (parseInt(xet_nuoc_ben_phai/9) == parseInt(vi_tri_hien_tai/9)) ){
+                    var quan_co_nuoc_ben_phai = parseInt( $('[data-position="'+xet_nuoc_ben_phai+'"]').data('value') );
+                    if( quan_co_nuoc_ben_phai == 0 ){ //vi tri dang xet la o trong
+                        vi_tri_co_the_di.push( xet_nuoc_ben_phai );
+                    }else{ //vi tri dang xet co quan co khac, vai tro nong phao
+                        var ben_phai_quan_can = xet_nuoc_ben_phai +1;
+                        while( (parseInt(ben_phai_quan_can/9) == parseInt(vi_tri_hien_tai/9)) ){
+                            var quan_co_trai_quan_can = parseInt( $('[data-position="'+ben_phai_quan_can+'"]').data('value') );
+                            if( quan_co_trai_quan_can == 0 ){
+                                ben_phai_quan_can++;
+                                continue;
+                            }else{
+                                var mau_quan_co_trai_quan_can = parseInt( $('[data-position="'+ben_phai_quan_can+'"]').data('value') );
+                                if( mau_quan_co_trai_quan_can != 2 ){
+                                    vi_tri_co_the_di.push( ben_phai_quan_can );
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    xet_nuoc_ben_phai++;
+                }
+                //xet nuoc len tren
+                var xet_nuoc_len_tren = vi_tri_hien_tai - 9;
+                var boi_so = 1;
+                while( (parseInt(xet_nuoc_len_tren/9) == (parseInt(vi_tri_hien_tai/9) - boi_so) ) ){
+                    var quan_co_nuoc_ben_tren = parseInt( $('[data-position="'+xet_nuoc_len_tren+'"]').data('value') );
+                    if( quan_co_nuoc_ben_tren == 0 ){ //vi tri dang xet la o trong
+                        vi_tri_co_the_di.push( xet_nuoc_len_tren );
+                    }else{ //vi tri dang xet co quan co khac, vai tro nong phao
+                        var ben_tren_quan_can = xet_nuoc_len_tren -9;
+                        var boi_so_2 = 1;
+                        while( (parseInt(ben_tren_quan_can/9) == (parseInt(xet_nuoc_len_tren/9) -boi_so_2 ) ) ){
+                            if( ben_duoi_quan_can > 90 || ben_duoi_quan_can <= 0 ){ break; }
+                            var quan_tren_quan_can = parseInt( $('[data-position="'+ben_tren_quan_can+'"]').data('value') );
+                            if( quan_tren_quan_can == 0 ){
+                                ben_tren_quan_can = ben_tren_quan_can - 9;
+                                boi_so_2++;
+                                continue;
+                            }else{
+                                var mau_quan_tren_quan_can = parseInt( $('[data-position="'+ben_tren_quan_can+'"]').data('color') );
+                                if( mau_quan_tren_quan_can != 2 ){
+                                    vi_tri_co_the_di.push( ben_tren_quan_can );
+                                    break;
+                                }
+                            }
+                            ben_tren_quan_can = ben_tren_quan_can - 9;
+                            boi_so_2++;
+                        }
+                        break;
+                    }
+                    xet_nuoc_len_tren = xet_nuoc_len_tren - 9;
+                    boi_so++;
+                }
+                //xet nuoc xuong duoi
+                var xet_nuoc_xuong_duoi = vi_tri_hien_tai + 9;
+                var boi_so = 1;
+                while( (parseInt(xet_nuoc_xuong_duoi/9) == (parseInt(vi_tri_hien_tai/9) + boi_so) ) ){
+                    var quan_co_nuoc_ben_duoi = parseInt( $('[data-position="'+xet_nuoc_xuong_duoi+'"]').data('value') );
+                    if( quan_co_nuoc_ben_duoi == 0 ){ //vi tri dang xet la o trong
+                        vi_tri_co_the_di.push( xet_nuoc_xuong_duoi );
+                    }else{ //vi tri dang xet co quan co khac, vai tro nong phao
+                        var ben_duoi_quan_can = xet_nuoc_xuong_duoi +9;
+                        var boi_so_2 = 1;
+                        while( (parseInt(ben_duoi_quan_can/9) == (parseInt(xet_nuoc_xuong_duoi/9) + boi_so_2 ) ) ){
+                            if( ben_duoi_quan_can > 90 || ben_duoi_quan_can <= 0 ){ break; }
+                            var quan_tren_quan_can = parseInt( $('[data-position="'+ben_duoi_quan_can+'"]').data('value') );
+                            if( quan_tren_quan_can == 0 ){
+                                ben_duoi_quan_can = ben_duoi_quan_can + 9;
+                                boi_so_2++;
+                                continue;
+                            }else{
+                                var mau_quan_tren_quan_can = parseInt( $('[data-position="'+ben_duoi_quan_can+'"]').data('color') );
+                                if( mau_quan_tren_quan_can != 2 ){
+                                    vi_tri_co_the_di.push( ben_duoi_quan_can );
+                                    break;
+                                }
+                            }
+                            ben_duoi_quan_can = ben_duoi_quan_can + 9;
+                            boi_so_2++;
+                        }
+                        break;
+                    }
+                    xet_nuoc_xuong_duoi = xet_nuoc_xuong_duoi + 9;
+                    boi_so++;
+                }
+                break;
+            case 1 : //xet cac nuoc co the di cho quan tot
+                var ranhgioi = $('[data-position="'+vi_tri_hien_tai+'"]').data('ranhgioi');
+                if( vi_tri_hien_tai >= 45 && ranhgioi == 'red' ){ //tot do chua sang song => chi len 1 nuoc
+                    var len_tren_1_nuoc = vi_tri_hien_tai - 9;
+                    if( (parseInt(len_tren_1_nuoc/9) == (parseInt(vi_tri_hien_tai/9) - 1) ) ){
+                        var quan_can = parseInt( $('[data-position="'+len_tren_1_nuoc+'"]').data('value') );
+                        var mau_quan_can = parseInt( $('[data-position="'+len_tren_1_nuoc+'"]').data('color') );
+                        
+                        if( quan_can == 0 ){ //khong co quan can
+                            vi_tri_co_the_di.push(len_tren_1_nuoc);
+                        }else{
+                            if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                                vi_tri_co_the_di.push(len_tren_1_nuoc);
+                            }
+                        }
+                    }
+                    
+                }
+                
+                if( vi_tri_hien_tai < 45 && ranhgioi == 'black' ){ //tot sang song, co the di len 1, sang trai 1, sang phai 1
+                    var sang_trai_1_nuoc = vi_tri_hien_tai - 1;
+                    if( parseInt(sang_trai_1_nuoc/9) == parseInt(vi_tri_hien_tai/9) ) {
+                        var quan_can = parseInt( $('[data-position="'+sang_trai_1_nuoc+'"]').data('value') );
+                        var mau_quan_can = parseInt( $('[data-position="'+sang_trai_1_nuoc+'"]').data('color') );
+                        
+                        if( quan_can == 0 ){ //khong co quan can
+                            vi_tri_co_the_di.push(sang_trai_1_nuoc);
+                        }else{
+                            if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                                vi_tri_co_the_di.push(sang_trai_1_nuoc);
+                            }
+                        }
+                        
+                    }
+                    
+                    //sang phai 1 nuoc
+                    var sang_phai_1_nuoc = vi_tri_hien_tai + 1;
+                    if( parseInt(sang_phai_1_nuoc/9) == parseInt(vi_tri_hien_tai/9) ){
+                        var quan_can = parseInt( $('[data-position="'+sang_phai_1_nuoc+'"]').data('value') );
+                        var mau_quan_can = parseInt( $('[data-position="'+sang_phai_1_nuoc+'"]').data('color') );
+                        
+                        if( quan_can == 0 ){ //khong co quan can
+                            vi_tri_co_the_di.push(sang_phai_1_nuoc);
+                        }else{
+                            if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                                vi_tri_co_the_di.push(sang_phai_1_nuoc);
+                            }
+                        }
+                        
+                    }
+                    //len tren 1 nuoc
+                    var len_tren_1_nuoc = vi_tri_hien_tai - 9;
+                    if( parseInt(len_tren_1_nuoc/9) == (parseInt(vi_tri_hien_tai/9) - 1) ){
+                        var quan_can = parseInt( $('[data-position="'+len_tren_1_nuoc+'"]').data('value') );
+                        var mau_quan_can = parseInt( $('[data-position="'+len_tren_1_nuoc+'"]').data('color') );
+                        
+                        if( quan_can == 0 ){ //khong co quan can
+                            vi_tri_co_the_di.push(len_tren_1_nuoc);
+                        }else{
+                            if( mau_quan_can != 2 ){//quan can khong phai quan minh => co the an
+                                vi_tri_co_the_di.push(len_tren_1_nuoc);
+                            }
+                        }
+                        
+                    }
+                }
+                break;
+            
         }
         console.log( vi_tri_co_the_di );
         
