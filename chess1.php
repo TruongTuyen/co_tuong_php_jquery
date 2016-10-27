@@ -32,11 +32,13 @@
     
     }
     
-    .o_co:hover{
-        cursor: pointer;
-        background-color: blue!important;
-    }
     
+    .o_co_selected,.current_selected{
+        cursor:pointer; 
+        background-color: #3498db!important;
+        border-color: #3498db; 
+        
+    }
     .color_1{
         color: #fff;
         background-color: #000;
@@ -52,6 +54,8 @@
     }
     
 </style>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
 <?php
 global $luot_di, $x_luot_di, $may;//Mau sac quan co cua computer
 
@@ -107,3 +111,10 @@ echo "</tbody>";
 
 echo "</table>";
 echo "</div>";
+
+
+function KT_Cac_Nuoc_Co_The_Di( $quan_co, $mau_sac, $vi_tri_hien_tai ){
+    $vi_tri_hop_le = array();
+    
+    
+}
