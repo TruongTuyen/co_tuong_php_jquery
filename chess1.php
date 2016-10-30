@@ -29,7 +29,8 @@
         padding: 10px 15px;
         border: 1px solid #000;
         border-radius: 100%;
-    
+        width: 40px;
+        height: 40px;
     }
     .o_co_hop_le.to{
         background-color: #f39c12!important;
