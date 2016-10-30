@@ -1,33 +1,39 @@
 (function($){
     $(document).ready(function(){
         o_co_selected();
-        //kt_nuoc_di_hop_le( 6, 48);
-        kt_nuoc_di_hop_le( 5, 22);
-        kt_nuoc_di_hop_le( 5, 32);
-        kt_nuoc_di_hop_le( 5, 51);
-        kt_nuoc_di_hop_le( 5, 43);
+        
+        
+        
     });
     
     function o_co_selected(){
         $('.o_co[data-color="2"][data-value!="0"]').click(function(){
             var that = $(this);
+            $('.o_co').removeClass('o_co_hop_le');
             if( $(that).hasClass('current_selected') ){
                 $(that).removeClass('current_selected');
+                
             }else{
                 $('.o_co[data-color="2"][data-value!="0"]').removeClass('current_selected');
                 $(that).addClass('current_selected');
-                nuoc_di_hop_le();
+                var quan_co = parseInt( that.data('value') );
+                var vi_tri  = parseInt( that.data('position') );
+                
+                var tat_ca_nuoc_hop_le = []
+                
+                tat_cat_nuoc_hop_le = kt_nuoc_di_hop_le( quan_co, vi_tri );
+                
+                $.each( tat_cat_nuoc_hop_le, function(i,v){
+                    
+                    $('[data-position="'+v+'"]').addClass('o_co_hop_le');
+                });
+                
+                console.log( tat_cat_nuoc_hop_le );
             }
             
         });
     }
     
-    function nuoc_di_hop_le(){
-        var vi_tri_hien_tai = $('.current_selected').data('position');
-        var quan_co = $('.current_selected').data('value');
-        console.log( 'vi tri hien tai: ' + vi_tri_hien_tai );
-        //sinh_nuoc_di( 6, 84);
-    }
     
     function kt_nuoc_di_hop_le( quan_co, vi_tri_hien_tai ){
         var vi_tri_co_the_di = [];
@@ -799,7 +805,80 @@
                 break;
             
         }
-        console.log( vi_tri_co_the_di );
         
+        return vi_tri_co_the_di;
     }
+    
+    function luong_gia(){
+        var i, danh_gia = 0;
+        for( i=0; i<90; i++ ){
+            var quan_co = parseInt( $('[data-position="'+i+'"]').data('value') );
+            var mau_quan_co = parseInt( $('[data-position="'+i+'"]').data('color') );
+            var khu_vuc = parseInt( $('[data-position="'+i+'"]').data('ranhgioi') );
+            
+            switch( quan_co ){
+                case 7 : //tuong: 1000
+                    if( mau_quan_co == 1 ){
+                        danh_gia = danh_gia - 1000;
+                    }else if( mau_quan_co == 2 ){
+                        danh_gia = danh_gia + 1000;
+                    }
+                    break;
+                case 6 : // xe: 90
+                    if( mau_quan_co == 1 ){
+                        danh_gia = danh_gia - 90;
+                    }else if( mau_quan_co == 2 ){
+                        danh_gia = danh_gia + 90;
+                    }
+                    break;
+                case 5 : //Phao: 45
+                    if( mau_quan_co == 1 ){
+                        danh_gia = danh_gia - 45;
+                    }else if( mau_quan_co == 2 ){
+                        danh_gia = danh_gia + 45;
+                    }
+                    break;
+                case 4 : //Ma: 40
+                    if( mau_quan_co == 1 ){
+                        danh_gia = danh_gia - 40;
+                    }else if( mau_quan_co == 2 ){
+                        danh_gia = danh_gia + 40;
+                    }
+                    break;
+                    
+                case 3 : //Tinh: 20
+                    if( mau_quan_co == 1 ){
+                        danh_gia = danh_gia - 20;
+                    }else if( mau_quan_co == 2 ){
+                        danh_gia = danh_gia + 20;
+                    }
+                    break;
+                case 2 : //Si: 20
+                    if( mau_quan_co == 1 ){
+                        danh_gia = danh_gia - 20;
+                    }else if( mau_quan_co == 2 ){
+                        danh_gia = danh_gia + 20;
+                    }
+                    break;
+                case 1 : //Tot: 10 && neu sang song thi: 20
+                    if( mau_quan_co == 1 ){ //tot den
+                        if( khu_vuc == "red" ){ //tot den sang song
+                            danh_gia = danh_gia - 20;
+                        }else{
+                            danh_gia = danh_gia - 10;
+                        }
+                    }else if( mau_quan_co == 2 ){ //tot do
+                        if( khu_vuc == "black" ){
+                            danh_gia = danh_gia + 20;
+                        }else{
+                            danh_gia = danh_gia + 10;
+                        }
+                        
+                    }
+                    break; 
+            }
+        }
+        return danh_gia;
+    }
+    
 })(jQuery);

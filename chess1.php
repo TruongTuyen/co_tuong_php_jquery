@@ -32,6 +32,10 @@
     
     }
     
+    .o_co_hop_le{
+        background-color: #d35400!important;
+        visibility: visible!important;
+    }
     
     .o_co_selected,.current_selected{
         cursor:pointer; 
