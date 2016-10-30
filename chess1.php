@@ -96,7 +96,7 @@ $mau_sac = array(
 
 echo "<div class='main-wrapper'>";
 echo "<div class='bg_banco'></div>";
-echo "<table class=\"ban_co\" border=''>";
+echo "<table class=\"ban_co\" data-luot_di=\"nguoi\" border=''>";
 
 echo "<tbody>";
 echo "<tr>";

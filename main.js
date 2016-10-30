@@ -5,13 +5,10 @@
     });
     
     function o_co_selected(){
-       
         $('td.o_co').on('click', function(){
+            var luot_di = $('.ban_co').attr( 'data-luot_di' );
             
             var that = $(this);
-            
-            //var color = parseInt( that.data( 'color' ) );
-            //var value = parseInt( that.data( 'value' ) ); 
             var color = parseInt( that.attr( 'data-color' ) );
             var value = parseInt( that.attr( 'data-value' ) ); 
             
@@ -37,27 +34,56 @@
                 di_chuyen( vi_tri_ban_dau, vi_tri_dich );
                 console.log('Tinh luong gia: ' + luong_gia());
             }**/
-            if( color == 1 && value != 0 ){
-                $('.o_co').removeClass('current_selected');
-                $('.o_co').removeClass('o_co_hop_le');
-                that.addClass('current_selected');
+            
+            if( luot_di == 'nguoi' ){ //Luot nguoi choi
                 
-                var quan_co = parseInt( that.attr('data-value') );
-                var vi_tri  = parseInt( that.attr('data-position') );
-                var ds_nuoc_di = kt_nuoc_di_cho_may_tinh( quan_co, vi_tri );
-                
-                
-                $.each(ds_nuoc_di, function(i, v){
-                    var node = $('[data-position="'+v+'"]');
-                    node.addClass( 'o_co_hop_le' );
-                });
-            }else if( that.hasClass( 'o_co_hop_le' ) ){
-                var vi_tri_ban_dau = $('.current_selected').attr('data-position');
-                var vi_tri_dich    = that.attr('data-position');
-                
-                di_chuyen( vi_tri_ban_dau, vi_tri_dich );
-                console.log('Tinh luong gia: ' + luong_gia());
+                if( color == 2 && value != 0 ){
+                    $('.o_co').removeClass('current_selected');
+                    $('.o_co').removeClass('o_co_hop_le');
+                    that.addClass('current_selected');
+                    
+                    var quan_co = parseInt( that.attr('data-value') );
+                    var vi_tri  = parseInt( that.attr('data-position') );
+                    var ds_nuoc_di = kt_nuoc_di_hop_le( quan_co, vi_tri );
+                    
+                    $.each(ds_nuoc_di, function(i, v){
+                        var node = $('[data-position="'+v+'"]');
+                        node.addClass( 'o_co_hop_le' );
+                    });
+                }else if( that.hasClass( 'o_co_hop_le' ) ){
+                    var vi_tri_ban_dau = $('.current_selected').attr('data-position');
+                    var vi_tri_dich    = that.attr('data-position');
+                    
+                    di_chuyen( vi_tri_ban_dau, vi_tri_dich );
+                    $('.ban_co').attr( 'data-luot_di', 'may' );
+                    console.log('Tinh luong gia: ' + luong_gia());
+                }   
+            }else if( luot_di == 'may' ){ //Luot may choi
+                if( color == 1 && value != 0 ){
+                    $('.o_co').removeClass('current_selected');
+                    $('.o_co').removeClass('o_co_hop_le');
+                    that.addClass('current_selected');
+                    
+                    var quan_co = parseInt( that.attr('data-value') );
+                    var vi_tri  = parseInt( that.attr('data-position') );
+                    var ds_nuoc_di = kt_nuoc_di_cho_may_tinh( quan_co, vi_tri );
+                    console.log( 'ds nuoc hop le cho may: ' + kt_nuoc_di_cho_may_tinh);
+                    
+                    $.each(ds_nuoc_di, function(i, v){
+                        var node = $('[data-position="'+v+'"]');
+                        node.addClass( 'o_co_hop_le' );
+                    });
+                }else if( that.hasClass( 'o_co_hop_le' ) ){
+                    var vi_tri_ban_dau = $('.current_selected').attr('data-position');
+                    var vi_tri_dich    = that.attr('data-position');
+                    
+                    di_chuyen( vi_tri_ban_dau, vi_tri_dich );
+                    $('.ban_co').attr( 'data-luot_di', 'nguoi' );
+                    console.log('Tinh luong gia: ' + luong_gia());
+                }  
             }
+            
+            
         }); 
     }
     
