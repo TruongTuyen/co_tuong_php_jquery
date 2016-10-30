@@ -31,10 +31,14 @@
         border-radius: 100%;
     
     }
+    .o_co_hop_le.to{
+        background-color: #f39c12!important;
+    }
     
     .o_co_hop_le{
         background-color: #d35400!important;
         visibility: visible!important;
+        cursor: pointer;
     }
     
     .o_co_selected,.current_selected{
