@@ -2,6 +2,11 @@
     $(document).ready(function(){
         o_co_selected();
         console.log('Tinh luong gia: ' + luong_gia());
+        
+        console.log('INFINITY: ' +1.7976931348623157E+10308);
+        
+        //1.7976931348623157E+10308
+        //-1.7976931348623157E+10308
     });
     
     function o_co_selected(){
@@ -1770,6 +1775,56 @@
             }
         }
         return danh_gia;
+    }
+    
+    function minimax( do_sau ){
+        var val = 0;
+        var luot_di = "nguoi";
+        if( luot_di == 'nguoi' ){
+            val = Max( do_sau );
+        }else{
+            val = Min( do_sau );
+        }
+    }
+    
+    function Max( do_sau ){
+        if( do_sau == 0 ){
+            return '';
+        }
+        var best = -1.7976931348623157E+10308;
+        nuoc_hop_le = kt_nuoc_hop_le();
+        if( nuoc_hop_le.length > 0){
+            //thu di chuyen 1 nuoc
+            var val = -Min(do_sau -1);
+            if( val > best ){
+                best = val;
+                if( luot_di_nguoi_choi ){
+                    //chon nuoc di nay
+                }
+            }
+            quay_lai();
+        }
+        return best;
+    }
+    
+    function Min( do_sau ){
+        if( do_sau == 0 ){
+            return '';
+        }
+        var best = 1.7976931348623157E+10308;
+        nuoc_hop_le = kt_nuoc_hop_le();
+        if( nuoc_hop_le.length > 0){
+            //thu di chuyen 1 nuoc
+            var val = -Max(do_sau -1);
+            if( val > best ){
+                best = val;
+                if( !luot_di_nguoi_choi ){
+                    //chon nuoc di nay
+                }
+            }
+            quay_lai();
+        }
+        return best;
     }
     
 })(jQuery);
