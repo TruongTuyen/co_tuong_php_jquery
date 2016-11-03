@@ -26,7 +26,8 @@
         background: url('chinese_chess.png') no-repeat;
     }
     .o_co{
-        padding: 10px 15px;
+        /** padding: 10px 15px; **/
+        text-align:center;
         border: 1px solid #000;
         border-radius: 100%;
         width: 40px;

@@ -1,13 +1,147 @@
 (function($){
     $(document).ready(function(){
         o_co_selected();
-        console.log('Tinh luong gia: ' + luong_gia());
         
-        console.log('INFINITY: ' +1.7976931348623157E+10308);
-        
-        //1.7976931348623157E+10308
-        //-1.7976931348623157E+10308
+        var luot_choi = 'may';
+        function minimax( do_sau ){
+            console.log( 'tai do sau: ' + do_sau );
+            if( do_sau == 0 ){
+                return luong_gia();
+            }else{
+                if( luot_choi == 'may' ){
+                    console.log( 'luot may choi' );
+                    luot_choi = 'nguoi';
+                    var best = -1.7976931348623157E+10308; //lay max
+                    
+                    for( i=0; i<=89; i++ ){
+                        var quan_co = parseInt( $('[data-position='+i+']').attr( 'data-value' ) );
+                        var mau_sac = parseInt( $('[data-position='+i+']').attr( 'data-color' ) );
+                        
+                        if( quan_co != 0 && mau_sac == 1 ){//quan mau den
+                            var ds_nuoc_di = kt_nuoc_di_cho_may_tinh( quan_co, i );
+                            $.each( ds_nuoc_di, function(k,v){
+                                console.log( 'v='+v+' -- i='+ i);
+                                console.log( 'tinh nuoc may tinh di k='+k);
+                                if( i >= 0 && i <= 89 ){
+                                    var dichuyen = di_chuyen(i, v);
+                                    if( dichuyen.position ){
+                                        console.log( '-- o '+i+' an đc o: ' + v );
+                                    }
+                                    console.log( '-- di chuyen tu: ' + i + ' --> ' + v );
+                                }
+                                
+                                var kq = minimax( do_sau - 1 );
+                                if( kq > best ){
+                                    best = kq;
+                                }
+                                if( i >= 0 && i <= 89 ){
+                                    di_chuyen(v, i);
+                                    console.log( '-- di chuyen nguoc lai tu: ' + v + ' --> ' + i );
+                                    if( dichuyen != true && dichuyen.position ){
+                                        console.log( 'khoi phuc o: ' + dichuyen.position );
+                                        khoi_phuc_quan_co_bi_an( dichuyen );
+                                    }
+                                    
+                                    
+                                }
+                                
+                                
+                            } );
+                        }
+                    }
+                    
+                    return best;
+                    //var best = 10000000000;
+                    //var a = minimax( do_sau - 1 );
+                }else{
+                    luot_choi = 'may';
+                    console.log( 'luot nguoi choi' );
+                    var best = 1.7976931348623157E+10308; //lay min
+                   
+                    for( j=0; j<=89; j++ ){
+                        var quan_co = parseInt( $('[data-position='+j+']').attr( 'data-value' ) );
+                        var mau_sac = parseInt( $('[data-position='+j+']').attr( 'data-color' ) );
+                        
+                        if( quan_co != 0 && mau_sac == 2 ){//quan mau den
+                            var ds_nuoc_di = kt_nuoc_di_hop_le( quan_co, j );
+                            $.each( ds_nuoc_di, function(k,v){
+                                console.log( 'tinh nuoc nguoi di k='+k);
+                                if( j>= 0 && j <= 89 ){
+                                    var dichuyen = di_chuyen(j, v);
+                                    if( dichuyen.position ){
+                                        console.log( '-- o '+i+' an đc o: ' + v );
+                                    }
+                                    console.log( '-- di chuyen tu: ' + j + ' --> ' + v );
+                                }
+                                
+                                var kq = minimax( do_sau - 1 );
+                                if( kq < best ){
+                                    best = kq;
+                                }
+                                if( j>= 0 && j <= 89 ){
+                                    di_chuyen(v, j);
+                                    console.log( '-- di chuyen nguoc lai tu: ' + v + ' --> ' + j );
+                                    if( dichuyen != true && dichuyen.position ){
+                                        console.log( 'khoi phuc o: ' + dichuyen.position );
+                                        khoi_phuc_quan_co_bi_an( dichuyen );
+                                    }
+                                    
+                                }
+                                
+                            } );
+                        }
+                    }
+                    
+                    return best;
+                    
+                }
+                
+            }
+        }
+        minimax(3);
+       
     });
+    
+    function khoi_phuc_quan_co_bi_an( quan_co ){
+        
+        var khoi_phuc = $('[data-position='+quan_co.position+']');
+        if( khoi_phuc.length > 0 ){
+            console.log( 'tim thay o khoi phuc' );
+        }else{
+            console.log( 'khong tim thay o khoi phuc' );
+        }
+        $('.o_co').removeClass('o_co_hop_le');
+        //khôi phục giá trị cũ
+        khoi_phuc.attr( 'data-value', quan_co.value );
+        khoi_phuc.attr( 'data-color', quan_co.color );
+        khoi_phuc.attr( 'class', quan_co.classes );
+        khoi_phuc.removeClass('current_selected');
+        khoi_phuc.find('.quan_co').text( quan_co.value  );
+        
+        console.log( 'khoi phuc o: '+quan_co.position+' trước khi bị ăn  value: '+quan_co.value +'+ color: '+quan_co.color+'+ classes: '+ quan_co.classes);
+    }
+    
+    function nuoc_di_toi_uu( luot_choi ){
+        if( luot_choi == 'may' ){
+            for( j=0; j<=89; j++ ){
+                var quan_co = parseInt( $('[data-position='+j+']').attr( 'data-value' ) );
+                var mau_sac = parseInt( $('[data-position='+j+']').attr( 'data-color' ) );
+                
+                if( quan_co != 0 && mau_sac == 2 ){//quan mau den
+                
+                }  
+            }
+        }else{
+            for( j=0; j<=89; j++ ){
+                var quan_co = parseInt( $('[data-position='+j+']').attr( 'data-value' ) );
+                var mau_sac = parseInt( $('[data-position='+j+']').attr( 'data-color' ) );
+                
+                if( quan_co != 0 && mau_sac == 2 ){//quan mau den
+                
+                }  
+            }
+        }
+    }
     
     function o_co_selected(){
         $('td.o_co').on('click', function(){
@@ -16,29 +150,6 @@
             var that = $(this);
             var color = parseInt( that.attr( 'data-color' ) );
             var value = parseInt( that.attr( 'data-value' ) ); 
-            
-            /**
-            if( color == 2 && value != 0 ){
-                $('.o_co').removeClass('current_selected');
-                $('.o_co').removeClass('o_co_hop_le');
-                that.addClass('current_selected');
-                
-                var quan_co = parseInt( that.attr('data-value') );
-                var vi_tri  = parseInt( that.attr('data-position') );
-                var ds_nuoc_di = kt_nuoc_di_hop_le( quan_co, vi_tri );
-                
-                
-                $.each(ds_nuoc_di, function(i, v){
-                    var node = $('[data-position="'+v+'"]');
-                    node.addClass( 'o_co_hop_le' );
-                });
-            }else if( that.hasClass( 'o_co_hop_le' ) ){
-                var vi_tri_ban_dau = $('.current_selected').attr('data-position');
-                var vi_tri_dich    = that.attr('data-position');
-                
-                di_chuyen( vi_tri_ban_dau, vi_tri_dich );
-                console.log('Tinh luong gia: ' + luong_gia());
-            }**/
             
             if( luot_di == 'nguoi' ){ //Luot nguoi choi
                 
@@ -55,13 +166,14 @@
                         var node = $('[data-position="'+v+'"]');
                         node.addClass( 'o_co_hop_le' );
                     });
+                    
                 }else if( that.hasClass( 'o_co_hop_le' ) ){
                     var vi_tri_ban_dau = $('.current_selected').attr('data-position');
                     var vi_tri_dich    = that.attr('data-position');
                     
                     di_chuyen( vi_tri_ban_dau, vi_tri_dich );
                     $('.ban_co').attr( 'data-luot_di', 'may' );
-                    console.log('Tinh luong gia: ' + luong_gia());
+                   
                 }   
             }else if( luot_di == 'may' ){ //Luot may choi
                 if( color == 1 && value != 0 ){
@@ -72,7 +184,6 @@
                     var quan_co = parseInt( that.attr('data-value') );
                     var vi_tri  = parseInt( that.attr('data-position') );
                     var ds_nuoc_di = kt_nuoc_di_cho_may_tinh( quan_co, vi_tri );
-                    console.log( 'ds nuoc hop le cho may: ' + kt_nuoc_di_cho_may_tinh);
                     
                     $.each(ds_nuoc_di, function(i, v){
                         var node = $('[data-position="'+v+'"]');
@@ -84,7 +195,7 @@
                     
                     di_chuyen( vi_tri_ban_dau, vi_tri_dich );
                     $('.ban_co').attr( 'data-luot_di', 'nguoi' );
-                    console.log('Tinh luong gia: ' + luong_gia());
+                    
                 }  
             }
             
@@ -105,14 +216,18 @@
     }
     
     function di_chuyen( vi_tri_ban_dau, vi_tri_dich ){//di chuyen toi dich
-        
         var vi_tri_ban_dau_value = parseInt( $('[data-position="'+vi_tri_ban_dau+'"]').attr('data-value') );
         var vi_tri_ban_dau_color = parseInt( $('[data-position="'+vi_tri_ban_dau+'"]').attr('data-color') );
+        
+        var quan_tai_dich_toi = parseInt( $('[data-position="'+vi_tri_dich+'"]').attr('data-value') );
+        var mau_quan_tai_dich_toi = parseInt( $('[data-position="'+vi_tri_dich+'"]').attr('data-color') );
+        var classes_css_quan_bi_an = $('[data-position="'+vi_tri_dich+'"]').attr('class');
         
         var ban_dau  = $('[data-position="'+vi_tri_ban_dau+'"]');
         var dich_toi = $('[data-position="'+vi_tri_dich+'"]');
         var vi_tri_ban_dau_classes = ban_dau.attr('class');
-       
+        
+               
         if( $('[data-position="'+vi_tri_dich+'"]').length > 0 ){
             $('.o_co').removeClass('o_co_hop_le');
             //Gan gia tri cho vi tri moi
@@ -131,6 +246,21 @@
             
         }
         
+        if( quan_tai_dich_toi != 0 ){ //quan tai vi tri toi bi an bởi quan ở vị trí ban đầu
+            
+            var quan_bi_an = { "value": quan_tai_dich_toi, "color" : mau_quan_tai_dich_toi, "classes" : classes_css_quan_bi_an, "position" : vi_tri_dich };
+            if( quan_tai_dich_toi == 7 && mau_quan_tai_dich_toi == 2 ){
+                //Quan do thua
+                $('.ban_co').addClass('nguoi_thua');
+            }
+            
+            if( quan_tai_dich_toi == 7 && mau_quan_tai_dich_toi == 1 ){
+                //Quan den thua
+                $('.ban_co').addClass('may_thua');
+            }
+            return quan_bi_an;
+        }
+        return true;
     }
     
     
@@ -1752,8 +1882,6 @@
                 continue;
             }else if( quan_co == 1 ){
                 
-                console.log('khu vuc: ' + khu_vuc);
-                console.log( 'mau co: '+ mau_quan_co );
                 if( mau_quan_co == 1 ){ //tot den
                     if( khu_vuc == "red" ){ //tot den sang song
                         danh_gia = danh_gia - 20;
@@ -1776,55 +1904,145 @@
         }
         return danh_gia;
     }
+    /**
+    function minimax( do_sau, luot_choi ){
+        if( do_sau == 0 ){
+            return luong_gia();
+        }
+        var children = [];
+        var i;
+        if( luot_choi == 'may' ){ //Tim max
+            var best = -1.7976931348623157E+10308;
+            //sinh nuoc di cho tat ca cac nuoc cua may, luu vao children
+            for( i=0; i<=89; i++ ){
+                var quan_co = parseInt( $('[data-position='+i+']').attr( 'data-value' ) );
+                var mau_sac = parseInt( $('[data-position='+i+']').attr( 'data-color' ) );
+                
+                if( quan_co != 0 && mau_sac == 1 ){//quan mau den
+                    var ds_nuoc_di = kt_nuoc_di_cho_may_tinh( quan_co, i );
+                    $.each( ds_nuoc_di, function(k,v){
+                        //di thu nuoc v
+                        var win = di_chuyen( i, v); // nuoc (*)
+                        if( win ){
+                            
+                            //return luong_gia();
+                           
+                        }
+                        var score = luong_gia();
+                        //Tinh luong gia
+                        //var score = minimax( do_sau - 1, 'nguoi' );
+                        if( score > best  ){
+                            best = score;
+                        }
+                        //di_chuyen(v, i);//phuc hoi nuoc (*)
+                    } );
+                }
+            }
+            
+            return best;
+        }else if( luot_choi == 'nguoi' ){ //Tim min
+            var best = 1.7976931348623157E+10308;
+            for( i=0; i<=89; i++ ){
+                var quan_co = parseInt( $('[data-position='+i+']').attr( 'data-value' ) );
+                var mau_sac = parseInt( $('[data-position='+i+']').attr( 'data-color' ) );
+                
+                if( quan_co != 0 && mau_sac == 2 ){//quan mau den
+                    var ds_nuoc_di = kt_nuoc_di_hop_le( quan_co, i );
+                    $.each( ds_nuoc_di, function(){
+                       //var score = minimax( do_sau - 1, 'may' );
+                       //di_chuyen( i, v );
+                       var score = luong_gia();
+                       //di_chuyen( v, i );
+                       
+                       if( score < best ){
+                            best = score;
+                       }
+                       return  best;
+                        
+                    });
+                }
+            }
+            
+        }
+    }
+    **/
+    /**
     
-    function minimax( do_sau ){
-        var val = 0;
-        var luot_di = "nguoi";
-        if( luot_di == 'nguoi' ){
-            val = Max( do_sau );
+    function is_game_over(){
+        var quan_tuong = $('.o_co[data-value="7"]');
+        if( quan_tuong.length = 2 ){
+            return false;
+            
         }else{
-            val = Min( do_sau );
+            alert('game over');
+            return true;
         }
     }
     
-    function Max( do_sau ){
-        if( do_sau == 0 ){
-            return '';
-        }
-        var best = -1.7976931348623157E+10308;
-        nuoc_hop_le = kt_nuoc_hop_le();
-        if( nuoc_hop_le.length > 0){
-            //thu di chuyen 1 nuoc
-            var val = -Min(do_sau -1);
-            if( val > best ){
-                best = val;
-                if( luot_di_nguoi_choi ){
-                    //chon nuoc di nay
+    function minimax2( do_sau ){
+        var result = { "score" : "", "best_move" : ""};
+        var luot_choi = $('.ban_co').attr( 'data-luot_di' );
+        
+        if( do_sau == 0 || is_game_over() ){
+            result.score = luong_gia();
+            result.best_move = "";
+            return result;
+        }else{
+            if( luot_choi == 'may' ){
+                var best = -1.7976931348623157E+10308;
+                var best_move = "";
+                for( i=0; i<=89; i++ ){
+                    var quan_co = parseInt( $('[data-position='+i+']').attr( 'data-value' ) );
+                    var mau_sac = parseInt( $('[data-position='+i+']').attr( 'data-color' ) );
+                    
+                    if( quan_co != 0 && mau_sac == 1 ){//quan mau den
+                        var ds_nuoc_di = kt_nuoc_di_cho_may_tinh( quan_co, i );
+                        $.each( ds_nuoc_di, function(k,v){
+                            var new_position = di_chuyen(i, v);
+                            new_position = new_position.dich_toi;
+                            var kq = minimax2( do_sau - 1 );
+                            
+                            if( kq.score > best ){
+                                best = kq.score;
+                                best_move = kq.best_move;
+                            }
+                            di_chuyen(v, i);
+                        } );
+                    }
                 }
-            }
-            quay_lai();
-        }
-        return best;
-    }
-    
-    function Min( do_sau ){
-        if( do_sau == 0 ){
-            return '';
-        }
-        var best = 1.7976931348623157E+10308;
-        nuoc_hop_le = kt_nuoc_hop_le();
-        if( nuoc_hop_le.length > 0){
-            //thu di chuyen 1 nuoc
-            var val = -Max(do_sau -1);
-            if( val > best ){
-                best = val;
-                if( !luot_di_nguoi_choi ){
-                    //chon nuoc di nay
+                result.score = best;
+                result.best_move = best_move;
+                $('.ban_co').attr( 'data-luot_di', 'nguoi' );
+                return result;
+            }else{
+                var best = 1.7976931348623157E+10308;
+                var best_move = "";
+                for( i=0; i<=89; i++ ){
+                    var quan_co = parseInt( $('[data-position='+i+']').attr( 'data-value' ) );
+                    var mau_sac = parseInt( $('[data-position='+i+']').attr( 'data-color' ) );
+                    
+                    if( quan_co != 0 && mau_sac == 2 ){//quan mau den
+                        var ds_nuoc_di = kt_nuoc_di_hop_le( quan_co, i );
+                        $.each( ds_nuoc_di, function(k,v){
+                            var new_position = di_chuyen(i, v);
+                            new_position = new_position.dich_toi;
+                            var kq = minimax2( do_sau - 1 );
+                            
+                            if( kq.score < best ){
+                                best = kq.score;
+                                best_move = kq.best_move;
+                            }
+                            di_chuyen(v, i);
+                        } );
+                    }
                 }
+                result.score = best;
+                result.best_move = best_move;
+                $('.ban_co').attr( 'data-luot_di', 'may' );
+                return result;
             }
-            quay_lai();
         }
-        return best;
     }
+    **/
     
 })(jQuery);
