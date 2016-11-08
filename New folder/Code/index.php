@@ -138,19 +138,6 @@
         background-size: cover;
     }
     
-    .tinh_nuoc_di{
-        margin-top: 30px;
-        text-align: center;
-    }
-    .tinh_nuoc_di a{
-        text-align: center;
-        padding: 7px; 
-        background-color: #2980b9;
-        color: #fff;
-        display: inline-block;
-        cursor: pointer;
-    }
-    
 </style>
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="main.js"></script>
@@ -209,9 +196,6 @@ echo "</tr>";
 echo "</tbody>";
 
 echo "</table>";
-echo "<div class='tinh_nuoc_di'>
-        <a>Tính nước đi</a>
-     </div>";
 echo "</div>";
 
 
