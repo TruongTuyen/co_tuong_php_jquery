@@ -129,7 +129,6 @@
                         if( dichuyen != true && dichuyen.position ){
                             console.log( 'khoi phuc o: ' + dichuyen.position );
                             khoi_phuc_quan_co_bi_an( dichuyen );
-                            tra_ve = { "best" : luong_gia(), "ban_dau" : vi_tri_bat_dau,  "dich_toi" : vi_tri_toi };
                         }
                         
                         var kq = minimax2( 'nguoi' );
@@ -171,7 +170,6 @@
                         if( dichuyen != true && dichuyen.position ){
                             console.log( 'khoi phuc o: ' + dichuyen.position );
                             khoi_phuc_quan_co_bi_an( dichuyen );
-                            tra_ve = { "best" : luong_gia(), "ban_dau" : vi_tri_bat_dau,  "dich_toi" : vi_tri_toi };
                         }
                         
                         if( kq.best < best_value ){
@@ -190,6 +188,92 @@
                 return tra_ve;
             }
             
+        }
+        
+        
+        function minimax( luot_choi, do_sau ){
+            var tra_ve;
+            
+            console.log( 'Xet do sau: ' + do_sau );
+            if( do_sau == 0 || is_game_over() ){
+                console.log( 'best at depth 0' );
+                tra_ve = { "best" : luong_gia(), "ban_dau" : "", "dich_toi" : "" };
+                return tra_ve;
+            }else{
+                if( luot_choi == 'may' ){
+                    console.log( 'luot may choi' );
+                    //luot_choi = 'nguoi';
+                    var best = -1.7976931348623157E+10308; //lay max
+                    
+                    var cac_nuoc_co_the_di_cua_may_tinh = tat_ca_cac_nuoc_co_the_di('may');
+                    
+                    console.log( 'So nuoc di co the di cua may: ' + cac_nuoc_co_the_di_cua_may_tinh.length );
+                    $.each(cac_nuoc_co_the_di_cua_may_tinh, function( k, v ){
+                        
+                        var vi_tri_bat_dau = v.vi_tri_bat_dau;
+                        var vi_tri_toi     = v.vi_tri_toi;
+                        if( vi_tri_bat_dau >= 0 && vi_tri_bat_dau <= 89 && vi_tri_toi >= 0 && vi_tri_toi <= 89 ){
+                            
+                            var dichuyen = di_chuyen( vi_tri_bat_dau, vi_tri_toi );
+                            console.log( '-- di chuyen tu: ' +vi_tri_bat_dau+ '  --> ' + vi_tri_toi );
+                            
+                            di_chuyen( vi_tri_toi, vi_tri_bat_dau );
+                            console.log( '-- di chuyen nguoc lai tu: ' + vi_tri_toi + ' --> ' + vi_tri_bat_dau );
+                            if( dichuyen != true && dichuyen.position ){
+                                console.log( 'khoi phuc o: ' + dichuyen.position );
+                                khoi_phuc_quan_co_bi_an( dichuyen );
+                            }
+                            
+                            var kq = minimax( 'nguoi', do_sau - 1 );
+                            if( kq.best > best ){
+                                best = kq.best;
+                                tra_ve = { "best" : best, "ban_dau" : vi_tri_bat_dau,  "dich_toi" : vi_tri_toi };
+                            }
+                            
+                        }
+                    });
+                    console.log( 'tra ve max' );
+                    return tra_ve;
+                    
+                }else{
+                    //luot_choi = 'may';
+                    console.log( 'luot nguoi choi' );
+                    var best = 1.7976931348623157E+10308; //lay min
+                    var cac_nuoc_co_the_di_cua_nguoi_choi = tat_ca_cac_nuoc_co_the_di('nguoi');
+                    
+                    console.log( 'So nuoc di co the di cua nguoi choi: ' + cac_nuoc_co_the_di_cua_nguoi_choi.length );
+                    
+                    $.each(cac_nuoc_co_the_di_cua_nguoi_choi, function( k, v ){
+                        
+                        var vi_tri_bat_dau = v.vi_tri_bat_dau;
+                        var vi_tri_toi     = v.vi_tri_toi;
+                        
+                        if( vi_tri_bat_dau >= 0 && vi_tri_bat_dau <= 89 && vi_tri_toi >= 0 && vi_tri_toi <= 89 ){
+                            
+                            var dichuyen = di_chuyen( vi_tri_bat_dau, vi_tri_toi );
+                            console.log( '-- di chuyen tu: ' +vi_tri_bat_dau+ '  --> ' + vi_tri_toi );
+                            var kq = minimax( 'may', do_sau - 1 );
+                            
+                            di_chuyen( vi_tri_toi , vi_tri_bat_dau );
+                            console.log( '-- di chuyen nguoc lai tu: ' + vi_tri_toi + ' --> ' + vi_tri_bat_dau );
+                            if( dichuyen != true && dichuyen.position ){
+                                console.log( 'khoi phuc o: ' + dichuyen.position );
+                                khoi_phuc_quan_co_bi_an( dichuyen );
+                            }
+                            
+                            if( kq.best < best ){
+                                best = kq.best;
+                                tra_ve = { "best" : best, "ban_dau" : vi_tri_bat_dau,  "dich_toi" : vi_tri_toi };
+                            }
+                            
+                        }
+                    });
+                    console.log( 'tra ve min' );
+                    return tra_ve;
+                    
+                }
+                
+            }
         }
         
         function khoi_phuc_quan_co_bi_an( quan_co ){
