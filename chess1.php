@@ -209,8 +209,12 @@ echo "</tr>";
 echo "</tbody>";
 
 echo "</table>";
-echo "<div class='tinh_nuoc_di'>
+echo "<div class='tinh_nuoc_di enable'>
         <a>Tính nước đi</a>
+        
+        <div class='bang_ket_qua'>
+            
+        </div>
      </div>";
 echo "</div>";
 
